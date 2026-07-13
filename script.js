@@ -1,91 +1,98 @@
-// ===============================
+// ==========================================
 // DOM ELEMENTS
-// ===============================
+// ==========================================
 
-// Form
 const form = document.getElementById("form");
 
-// Input Fields
 const textInput = document.getElementById("text");
+
 const amountInput = document.getElementById("amount");
 
-// Transaction List
 const transactionsList = document.getElementById("transactions");
 
-// Summary Elements
 const balanceEl = document.getElementById("balance");
+
 const incomeEl = document.getElementById("income");
+
 const expenseEl = document.getElementById("expense");
 
 
-// ===============================
-// LOAD DATA FROM LOCAL STORAGE
-// ===============================
+// ==========================================
+// APPLICATION STATE
+// ==========================================
 
-let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+let transactions =
+JSON.parse(localStorage.getItem("transactions")) || [];
 
 
-// ===============================
+// ==========================================
 // ADD TRANSACTION
-// ===============================
+// ==========================================
 
-function addTransaction(event) {
+function addTransaction(event){
 
     event.preventDefault();
 
     const text = textInput.value.trim();
-    const amount = Number(amountInput.value);
+
+    let amount = Number(amountInput.value);
+
+    const selectedType =
+    document.querySelector(
+        'input[name="type"]:checked'
+    ).value;
 
 
     // Validation
-    if (text === "" || amount === 0) {
-        alert("Please enter a description and a valid amount.");
+
+    if(text === "" || amount <= 0){
+
+        alert("Please enter valid details.");
+
         return;
+
     }
 
 
-    // Create Transaction Object
+    // Expense ko negative banana
+
+    if(selectedType === "expense"){
+
+        amount = -amount;
+
+    }
+
+
     const transaction = {
+
         id: Date.now(),
+
         text: text,
+
         amount: amount
+
     };
 
 
-    // Add to Array
     transactions.push(transaction);
 
-
-    // Save Data
     updateLocalStorage();
 
-
-    // Update UI
     renderTransactions();
 
-
-    // Clear Form
     form.reset();
-}
-
-
-
-// ===============================
-// SAVE DATA TO LOCAL STORAGE
-// ===============================
-
-function updateLocalStorage() {
-
-    localStorage.setItem(
-        "transactions",
-        JSON.stringify(transactions)
-    );
 
 }
-// 👇 YAHAN ADD KARO DELETE FUNCTION
-function deleteTransaction(id) {
 
-    transactions = transactions.filter(function(transaction) {
+
+
+// ==========================================
+// DELETE TRANSACTION
+// ==========================================
+
+function deleteTransaction(id){
+
+    transactions = transactions.filter(function(transaction){
 
         return transaction.id !== id;
 
@@ -100,32 +107,90 @@ function deleteTransaction(id) {
 
 
 
+// ==========================================
+// LOCAL STORAGE
+// ==========================================
 
+function updateLocalStorage(){
 
-// ===============================
-// DISPLAY TRANSACTIONS
-// ===============================
+    localStorage.setItem(
+
+        "transactions",
+
+        JSON.stringify(transactions)
+
+    );
+
+}
+// ==========================================
+// RENDER TRANSACTIONS
+// ==========================================
 
 function renderTransactions() {
 
     transactionsList.innerHTML = "";
 
-    transactions.forEach(function(t) {
+    if (transactions.length === 0) {
+
+        transactionsList.innerHTML = `
+            <p class="empty">
+                No Transactions Found
+            </p>
+        `;
+
+        updateSummary();
+
+        return;
+
+    }
+
+    transactions.forEach(function (transaction) {
 
         const li = document.createElement("li");
 
-        li.classList.add(t.amount > 0 ? "income" : "expense");
+        const type =
+            transaction.amount > 0 ? "income" : "expense";
 
         li.innerHTML = `
-            <span>${t.text}</span>
 
-            <span>
-                ${t.amount > 0 ? "+" : "-"}₹${Math.abs(t.amount)}
+            <div class="transaction-info">
 
-                <button onclick="deleteTransaction(${t.id})">
-                    Delete
+                <div class="transaction-title">
+
+                    ${transaction.text}
+
+                </div>
+
+                <span class="badge ${type}">
+
+                    ${type === "income" ? "Income" : "Expense"}
+
+                </span>
+
+            </div>
+
+            <div class="transaction-right">
+
+                <span class="amount ${type}">
+
+                    ${transaction.amount > 0 ? "+" : "-"}
+
+                    ₹${Math.abs(transaction.amount).toFixed(2)}
+
+                </span>
+
+                <button
+                    class="delete-btn"
+                    onclick="deleteTransaction(${transaction.id})"
+                    title="Delete Transaction"
+                >
+
+                    🗑️
+
                 </button>
-            </span>
+
+            </div>
+
         `;
 
         transactionsList.appendChild(li);
@@ -133,87 +198,87 @@ function renderTransactions() {
     });
 
     updateSummary();
+
 }
 
 
 
-// ===============================
-// UPDATE BALANCE, INCOME, EXPENSE
-// ===============================
+// ==========================================
+// UPDATE SUMMARY
+// ==========================================
 
 function updateSummary() {
 
-
-    // Get only amounts
-    const amounts = transactions.map(function(transaction) {
+    const amounts = transactions.map(function (transaction) {
 
         return transaction.amount;
 
     });
 
 
+    const balance = amounts
+        .reduce(function (total, amount) {
 
-    // Total Balance
-    const total = amounts.reduce(function(sum, amount) {
+            return total + amount;
 
-        return sum + amount;
-
-    }, 0);
-
+        }, 0);
 
 
-    // Income
     const income = amounts
-        .filter(function(amount) {
+        .filter(function (amount) {
 
             return amount > 0;
 
         })
-        .reduce(function(sum, amount) {
+        .reduce(function (total, amount) {
 
-            return sum + amount;
+            return total + amount;
 
         }, 0);
 
 
-
-    // Expense
     const expense = amounts
-        .filter(function(amount) {
+        .filter(function (amount) {
 
             return amount < 0;
 
         })
-        .reduce(function(sum, amount) {
+        .reduce(function (total, amount) {
 
-            return sum + amount;
+            return total + amount;
 
         }, 0);
 
 
+    balanceEl.textContent =
+        `₹${balance.toFixed(2)}`;
 
-    // Update HTML
+    incomeEl.textContent =
+        `₹${income.toFixed(2)}`;
 
-    balanceEl.innerText = `₹${total.toFixed(2)}`;
-
-    incomeEl.innerText = `₹${income.toFixed(2)}`;
-
-    expenseEl.innerText = `₹${Math.abs(expense).toFixed(2)}`;
+    expenseEl.textContent =
+        `₹${Math.abs(expense).toFixed(2)}`;
 
 }
 
 
 
-// ===============================
+// ==========================================
 // EVENT LISTENER
-// ===============================
+// ==========================================
 
-form.addEventListener("submit", addTransaction);
+form.addEventListener(
+
+    "submit",
+
+    addTransaction
+
+);
 
 
 
-// ===============================
-// INITIAL LOAD
-// ===============================
+// ==========================================
+// INITIAL RENDER
+// ==========================================
 
 renderTransactions();

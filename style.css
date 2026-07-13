@@ -1,22 +1,18 @@
-```css
-/* =====================
-   GLOBAL RESET
-===================== */
+/* ==========================================
+   GOOGLE FONT
+========================================== */
 
-* {
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
+body{
 
-body {
+    font-family:"Inter",sans-serif;
 
-    margin: 0;
-
-    padding: 2rem;
-
-    font-family: "Inter", Arial, sans-serif;
-
-    background: linear-gradient(
+    background:linear-gradient(
         135deg,
         #eef2ff,
         #f8fafc
@@ -30,237 +26,253 @@ body {
 
     align-items:flex-start;
 
+    padding:40px 20px;
+
 }
 
 
+/* ==========================================
+   CONTAINER
+========================================== */
 
-/* =====================
-   MAIN CONTAINER
-===================== */
-
-
-.container {
-
-    background:white;
+.container{
 
     width:100%;
 
-    max-width:600px;
+    max-width:650px;
 
-    padding:2rem;
+    background:#ffffff;
 
     border-radius:20px;
 
+    padding:30px;
+
     box-shadow:
-    0 10px 30px rgba(0,0,0,0.08);
+    0 10px 30px rgba(0,0,0,.08);
 
 }
 
 
-
-/* =====================
+/* ==========================================
    HEADER
-===================== */
+========================================== */
 
-
-h1,
-h2 {
+header{
 
     text-align:center;
 
-    margin-bottom:10px;
+    margin-bottom:30px;
 
 }
 
-
-h1 {
+header h1{
 
     font-size:32px;
 
+    color:#1f2937;
+
+    margin-bottom:8px;
+
 }
 
-
-.subtitle {
-
-    text-align:center;
+.subtitle{
 
     color:#6b7280;
-
-}
-
-
-
-/* =====================
-   SUMMARY SECTION
-===================== */
-
-
-.summary {
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(auto-fit,minmax(150px,1fr));
-
-    gap:15px;
-
-    margin:25px 0;
-
-}
-
-
-
-.card {
-
-    padding:20px;
-
-    border-radius:15px;
-
-    color:white;
-
-    text-align:center;
-
-    min-height:120px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    overflow:hidden;
-
-}
-
-
-
-.card h3 {
-
-    margin:0;
 
     font-size:15px;
 
 }
 
 
+/* ==========================================
+   SUMMARY CARDS
+========================================== */
 
-.card p {
+.summary{
 
-    font-size:22px;
+    display:grid;
 
-    font-weight:bold;
+    grid-template-columns:
+    repeat(3,1fr);
 
-    margin-top:10px;
+    gap:18px;
 
-    word-break:break-word;
+    margin-bottom:30px;
 
 }
 
+.card{
 
+    color:white;
 
-.balance-card {
+    padding:22px;
+
+    border-radius:16px;
+
+    text-align:center;
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.card h3{
+
+    font-size:16px;
+
+    font-weight:500;
+
+    margin-bottom:12px;
+
+}
+
+.card p{
+
+    font-size:25px;
+
+    font-weight:700;
+
+}
+
+.balance-card{
 
     background:#2563eb;
 
 }
 
-
-
-.income-card {
+.income-card{
 
     background:#10b981;
 
 }
 
-
-
-.expense-card {
+.expense-card{
 
     background:#ef4444;
 
 }
 
 
-
-/* =====================
+/* ==========================================
    FORM
-===================== */
+========================================== */
 
-
-form {
+form{
 
     display:flex;
 
     flex-direction:column;
 
-    gap:12px;
+    gap:16px;
 
-    margin-top:20px;
+    margin-bottom:30px;
 
 }
 
-
-
-input {
+input[type="text"],
+input[type="number"]{
 
     width:100%;
 
-    height:45px;
-
-    padding:12px;
-
-    font-size:16px;
-
-    border-radius:8px;
+    padding:14px;
 
     border:1px solid #d1d5db;
 
+    border-radius:10px;
+
+    font-size:15px;
+
+    transition:.3s;
+
 }
 
-
-
-input:focus {
+input:focus{
 
     outline:none;
 
     border-color:#2563eb;
 
-    box-shadow:0 0 5px rgba(37,99,235,0.3);
+    box-shadow:
+    0 0 0 3px rgba(37,99,235,.15);
 
 }
 
 
+/* ==========================================
+   TRANSACTION TYPE
+========================================== */
 
-/* =====================
-   BUTTON
-===================== */
+.type-group{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    padding:15px;
+
+    background:#f9fafb;
+
+    border-radius:12px;
+
+}
+
+.type-group label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    color:#374151;
+
+}
+
+.type-group input{
+
+    accent-color:#2563eb;
+
+}
 
 
-button {
+/* ==========================================
+   ADD BUTTON
+========================================== */
 
-    padding:12px;
+form button{
+
+    border:none;
+
+    padding:15px;
 
     background:#2563eb;
 
     color:white;
 
-    border:none;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
     font-size:16px;
 
     font-weight:600;
 
-    transition:0.2s;
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
 
 }
 
-
-
-button:hover {
+form button:hover{
 
     background:#1d4ed8;
 
@@ -268,199 +280,321 @@ button:hover {
 
 }
 
+form button:active{
 
-
-button:active {
-
-    transform:scale(0.97);
+    transform:scale(.98);
 
 }
 
 
+/* ==========================================
+   HISTORY TITLE
+========================================== */
 
-/* =====================
-   TRANSACTION LIST
-===================== */
+.history h2{
 
+    margin-bottom:18px;
 
-.list {
+    color:#1f2937;
 
-    list-style:none;
+}
+/* ==========================================
+   GOOGLE FONT
+========================================== */
 
+*{
+    margin:0;
     padding:0;
+    box-sizing:border-box;
+}
 
-    margin-top:25px;
+body{
+
+    font-family:"Inter",sans-serif;
+
+    background:linear-gradient(
+        135deg,
+        #eef2ff,
+        #f8fafc
+    );
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:flex-start;
+
+    padding:40px 20px;
 
 }
 
 
+/* ==========================================
+   CONTAINER
+========================================== */
 
-.list li {
+.container{
+
+    width:100%;
+
+    max-width:650px;
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+header{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+}
+
+header h1{
+
+    font-size:32px;
+
+    color:#1f2937;
+
+    margin-bottom:8px;
+
+}
+
+.subtitle{
+
+    color:#6b7280;
+
+    font-size:15px;
+
+}
+
+
+/* ==========================================
+   SUMMARY CARDS
+========================================== */
+
+.summary{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:18px;
+
+    margin-bottom:30px;
+
+}
+
+.card{
+
+    color:white;
+
+    padding:22px;
+
+    border-radius:16px;
+
+    text-align:center;
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.card h3{
+
+    font-size:16px;
+
+    font-weight:500;
+
+    margin-bottom:12px;
+
+}
+
+.card p{
+
+    font-size:25px;
+
+    font-weight:700;
+
+}
+
+.balance-card{
+
+    background:#2563eb;
+
+}
+
+.income-card{
+
+    background:#10b981;
+
+}
+
+.expense-card{
+
+    background:#ef4444;
+
+}
+
+
+/* ==========================================
+   FORM
+========================================== */
+
+form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+    margin-bottom:30px;
+
+}
+
+input[type="text"],
+input[type="number"]{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+input:focus{
+
+    outline:none;
+
+    border-color:#2563eb;
+
+    box-shadow:
+    0 0 0 3px rgba(37,99,235,.15);
+
+}
+
+
+/* ==========================================
+   TRANSACTION TYPE
+========================================== */
+
+.type-group{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    padding:15px;
+
+    background:#f9fafb;
+
+    border-radius:12px;
+
+}
+
+.type-group label{
 
     display:flex;
 
     align-items:center;
 
-    gap:12px;
+    gap:8px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    color:#374151;
+
+}
+
+.type-group input{
+
+    accent-color:#2563eb;
+
+}
+
+
+/* ==========================================
+   ADD BUTTON
+========================================== */
+
+form button{
+
+    border:none;
 
     padding:15px;
 
-    margin-bottom:12px;
+    background:#2563eb;
 
-    background:#f9fafb;
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
 
     border-radius:10px;
 
-    border-left:5px solid;
+    cursor:pointer;
 
-    box-shadow:
-    0 2px 8px rgba(0,0,0,0.05);
+    transition:.3s;
+
+}
+
+form button:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-2px);
+
+}
+
+form button:active{
+
+    transform:scale(.98);
 
 }
 
 
+/* ==========================================
+   HISTORY TITLE
+========================================== */
 
-/* Transaction text */
+.history h2{
 
+    margin-bottom:18px;
 
-.transaction-text {
-
-    flex:1;
-
-    overflow-wrap:anywhere;
-
-    font-weight:500;
+    color:#1f2937;
 
 }
-
-
-
-/* Amount */
-
-
-.list li span {
-
-    white-space:nowrap;
-
-    font-weight:bold;
-
-}
-
-
-
-/* Income */
-
-
-.list li.income {
-
-    border-color:#10b981;
-
-}
-
-
-
-/* Expense */
-
-
-.list li.expense {
-
-    border-color:#ef4444;
-
-}
-
-
-
-/* =====================
-   DELETE BUTTON
-===================== */
-
-
-.list li button {
-
-    width:35px;
-
-    height:35px;
-
-    padding:0;
-
-    flex-shrink:0;
-
-    border-radius:50%;
-
-    background:#ef4444;
-
-    font-size:14px;
-
-}
-
-
-
-.list li button:hover {
-
-    background:#dc2626;
-
-}
-
-
-
-/* =====================
-   EMPTY STATE
-===================== */
-
-
-.empty {
-
-    text-align:center;
-
-    color:#6b7280;
-
-    padding:25px;
-
-}
-
-
-
-/* =====================
-   RESPONSIVE
-===================== */
-
-
-@media(max-width:600px){
-
-
-    body {
-
-        padding:1rem;
-
-    }
-
-
-    .container {
-
-        padding:1.2rem;
-
-    }
-
-
-    .summary {
-
-        grid-template-columns:1fr;
-
-    }
-
-
-    .list li {
-
-        flex-wrap:wrap;
-
-    }
-
-
-    .list li span {
-
-        margin-left:auto;
-
-    }
-
-}
-```
