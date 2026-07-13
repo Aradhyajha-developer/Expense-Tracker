@@ -1,3 +1,7 @@
+// ===============================
+// DOM ELEMENTS
+// ===============================
+
 // Form
 const form = document.getElementById("form");
 
@@ -13,44 +17,197 @@ const balanceEl = document.getElementById("balance");
 const incomeEl = document.getElementById("income");
 const expenseEl = document.getElementById("expense");
 
-// Check if all elements are selected
-console.log(form);
-console.log(textInput);
-console.log(amountInput);
-console.log(transactionsList);
-console.log(balanceEl);
-console.log(incomeEl);
-console.log(expenseEl);
-// Get transactions from localStorage
-let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-console.log(transactions);
 
-// 👇 Yahan se add karo
+// ===============================
+// LOAD DATA FROM LOCAL STORAGE
+// ===============================
+
+let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+
+// ===============================
+// ADD TRANSACTION
+// ===============================
+
 function addTransaction(event) {
+
     event.preventDefault();
 
     const text = textInput.value.trim();
     const amount = Number(amountInput.value);
 
+
+    // Validation
     if (text === "" || amount === 0) {
         alert("Please enter a description and a valid amount.");
         return;
     }
 
+
+    // Create Transaction Object
     const transaction = {
         id: Date.now(),
         text: text,
         amount: amount
     };
 
+
+    // Add to Array
     transactions.push(transaction);
+
+
+    // Save Data
     updateLocalStorage();
 
-    console.log(transactions);
 
+    // Update UI
+    renderTransactions();
+
+
+    // Clear Form
     form.reset();
 }
-form.addEventListener("submit", addTransaction);
+
+
+
+// ===============================
+// SAVE DATA TO LOCAL STORAGE
+// ===============================
+
 function updateLocalStorage() {
-    localStorage.setItem("transactions", JSON.stringify(transactions));
+
+    localStorage.setItem(
+        "transactions",
+        JSON.stringify(transactions)
+    );
+
 }
+
+
+
+// ===============================
+// DISPLAY TRANSACTIONS
+// ===============================
+
+function renderTransactions() {
+
+
+    // Clear Existing List
+    transactionsList.innerHTML = "";
+
+
+    // Loop Through Transactions
+    transactions.forEach(function(transaction) {
+
+
+        const li = document.createElement("li");
+
+
+        // Income or Expense Class
+        li.classList.add(
+            transaction.amount > 0 ? "income" : "expense"
+        );
+
+
+        li.innerHTML = `
+            ${transaction.text}
+
+            <span>
+                ${transaction.amount > 0 ? "+" : "-"}
+                ₹${Math.abs(transaction.amount)}
+            </span>
+        `;
+
+
+        transactionsList.appendChild(li);
+
+    });
+
+
+    // Update Summary
+    updateSummary();
+
+}
+
+
+
+// ===============================
+// UPDATE BALANCE, INCOME, EXPENSE
+// ===============================
+
+function updateSummary() {
+
+
+    // Get only amounts
+    const amounts = transactions.map(function(transaction) {
+
+        return transaction.amount;
+
+    });
+
+
+
+    // Total Balance
+    const total = amounts.reduce(function(sum, amount) {
+
+        return sum + amount;
+
+    }, 0);
+
+
+
+    // Income
+    const income = amounts
+        .filter(function(amount) {
+
+            return amount > 0;
+
+        })
+        .reduce(function(sum, amount) {
+
+            return sum + amount;
+
+        }, 0);
+
+
+
+    // Expense
+    const expense = amounts
+        .filter(function(amount) {
+
+            return amount < 0;
+
+        })
+        .reduce(function(sum, amount) {
+
+            return sum + amount;
+
+        }, 0);
+
+
+
+    // Update HTML
+
+    balanceEl.innerText = `₹${total.toFixed(2)}`;
+
+    incomeEl.innerText = `₹${income.toFixed(2)}`;
+
+    expenseEl.innerText = `₹${Math.abs(expense).toFixed(2)}`;
+
+}
+
+
+
+// ===============================
+// EVENT LISTENER
+// ===============================
+
+form.addEventListener("submit", addTransaction);
+
+
+
+// ===============================
+// INITIAL LOAD
+// ===============================
+
+renderTransactions();
