@@ -44,9 +44,13 @@ function addTransaction(event) {
     };
 
     transactions.push(transaction);
+    updateLocalStorage();
 
     console.log(transactions);
 
     form.reset();
 }
 form.addEventListener("submit", addTransaction);
+function updateLocalStorage() {
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+}
