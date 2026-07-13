@@ -82,6 +82,23 @@ function updateLocalStorage() {
     );
 
 }
+// 👇 YAHAN ADD KARO DELETE FUNCTION
+function deleteTransaction(id) {
+
+    transactions = transactions.filter(function(transaction) {
+
+        return transaction.id !== id;
+
+    });
+
+
+    updateLocalStorage();
+
+    renderTransactions();
+
+}
+
+
 
 
 
@@ -110,13 +127,17 @@ function renderTransactions() {
 
 
         li.innerHTML = `
-            ${transaction.text}
+    ${transaction.text}
 
-            <span>
-                ${transaction.amount > 0 ? "+" : "-"}
-                ₹${Math.abs(transaction.amount)}
-            </span>
-        `;
+    <span>
+        ${transaction.amount > 0 ? "+" : "-"}
+        ₹${Math.abs(transaction.amount)}
+    </span>
+
+    <button onclick="deleteTransaction(${transaction.id})">
+        X
+    </button>
+`;
 
 
         transactionsList.appendChild(li);
