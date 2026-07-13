@@ -108,46 +108,31 @@ function deleteTransaction(id) {
 
 function renderTransactions() {
 
-
-    // Clear Existing List
     transactionsList.innerHTML = "";
 
-
-    // Loop Through Transactions
-    transactions.forEach(function(transaction) {
-
+    transactions.forEach(function(t) {
 
         const li = document.createElement("li");
 
-
-        // Income or Expense Class
-        li.classList.add(
-            transaction.amount > 0 ? "income" : "expense"
-        );
-
+        li.classList.add(t.amount > 0 ? "income" : "expense");
 
         li.innerHTML = `
-    ${transaction.text}
+            <span>${t.text}</span>
 
-    <span>
-        ${transaction.amount > 0 ? "+" : "-"}
-        ₹${Math.abs(transaction.amount)}
-    </span>
+            <span>
+                ${t.amount > 0 ? "+" : "-"}₹${Math.abs(t.amount)}
 
-    <button onclick="deleteTransaction(${transaction.id})">
-        X
-    </button>
-`;
-
+                <button onclick="deleteTransaction(${t.id})">
+                    Delete
+                </button>
+            </span>
+        `;
 
         transactionsList.appendChild(li);
 
     });
 
-
-    // Update Summary
     updateSummary();
-
 }
 
 
