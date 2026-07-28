@@ -598,3 +598,235 @@ form button:active{
     color:#1f2937;
 
 }
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+/* Laptop */
+@media screen and (max-width: 1024px) {
+
+    .container{
+
+        max-width:700px;
+
+        padding:25px;
+
+    }
+
+}
+
+
+/* Tablet */
+@media screen and (max-width:768px){
+
+    body{
+
+        padding:20px 15px;
+
+    }
+
+    .container{
+
+        width:100%;
+
+        padding:20px;
+
+    }
+
+    .summary{
+
+        grid-template-columns:repeat(2,1fr);
+
+    }
+
+    .type-group{
+
+        gap:20px;
+
+    }
+
+}
+
+
+/* Mobile */
+@media screen and (max-width:600px){
+
+    body{
+
+        padding:15px 10px;
+
+    }
+
+    header h1{
+
+        font-size:26px;
+
+    }
+
+    .subtitle{
+
+        font-size:14px;
+
+    }
+
+    .container{
+
+        padding:18px;
+
+        border-radius:15px;
+
+    }
+
+    .summary{
+
+        grid-template-columns:1fr;
+
+        gap:15px;
+
+    }
+
+    .card{
+
+        padding:18px;
+
+    }
+
+    .card p{
+
+        font-size:22px;
+
+    }
+
+    input[type="text"],
+    input[type="number"]{
+
+        font-size:14px;
+
+        padding:12px;
+
+    }
+
+    form button{
+
+        font-size:15px;
+
+        padding:13px;
+
+    }
+
+    .type-group{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:12px;
+
+        padding:12px;
+
+    }
+
+}
+
+
+/* Small Mobile */
+@media screen and (max-width:480px){
+
+    body{
+
+        padding:10px;
+
+    }
+
+    .container{
+
+        padding:15px;
+
+        border-radius:12px;
+
+    }
+
+    header h1{
+
+        font-size:22px;
+
+    }
+
+    .subtitle{
+
+        font-size:13px;
+
+    }
+
+    .card{
+
+        padding:15px;
+
+    }
+
+    .card h3{
+
+        font-size:15px;
+
+    }
+
+    .card p{
+
+        font-size:20px;
+
+    }
+
+    input[type="text"],
+    input[type="number"]{
+
+        padding:10px;
+
+        font-size:14px;
+
+    }
+
+    form button{
+
+        padding:12px;
+
+        font-size:14px;
+
+    }
+
+}
+
+
+/* Very Small Devices */
+@media screen and (max-width:320px){
+
+    body{
+
+        padding:8px;
+
+    }
+
+    .container{
+
+        padding:12px;
+
+    }
+
+    header h1{
+
+        font-size:20px;
+
+    }
+
+    .card{
+
+        padding:12px;
+
+    }
+
+    .card p{
+
+        font-size:18px;
+
+    }
+
+}
